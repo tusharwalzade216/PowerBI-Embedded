@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Power BI - Embed Sample</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/style/style.css">
+    <!-- Bootstrap core CSS-->
+    <link href="~/Content/Sakon-template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/Sakon-template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="~/Content/Sakon-template/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/Content/Sakon-template/css/sk-admin.css" rel="stylesheet">
+    <!-- Custom Font -->
+    <link href="~/Content/Sakon-template/css/pn-style.css" rel="stylesheet">
+    <!-- GSG Icons -->
+    <link href="~/Content/Sakon-template/gsg-icons/style.css" rel="stylesheet">
+    <link href="~/Content/Sakon-template/css/pn-style.css" rel="stylesheet" />
+</head>
+<body class="fixed-nav sticky-footer bg-light" id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light sakon-header fixed-top" id="mainNav">
+        <a class="navbar-brand" href="#"><img style="height:30px" src="~/Content/Sakon-template/images/sakon-logo-horizontal.png" /></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav sakon-sidebar" id="exampleAccordion">
+                <li class="nav-item">
+                    <a class="nav-link text-center p-2 bg-light" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i><span class="menu">Menu</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-sitemap"></i>
+                        <span class="nav-link-text">Dashboards</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseMulti">
+                        <li>
+                            <a href="~/Home/EmbedDashboard">McKesson</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-sitemap"></i>
+                        <span class="nav-link-text">Reports</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseMulti2">
+                        <li>
+                            <a href="~/Home/EmbedReport">McKesson</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti3" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-sitemap"></i>
+                        <span class="nav-link-text">Tiles</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseMulti3">
+                        <li>
+                            <a href="~/Home/EmbedTile">McKesson</a>
+                        </li>
+                    </ul>
+                </li>
+                @*<li class="nav-item" data-toggle="tooltip" data-placement="right">
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-fw fa-link"></i>
+                            <span class="nav-link-text">Link</span>
+                        </a>
+                    </li>*@
+            </ul>
+
+            @*<ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-fw fa-user-circle fa-lg"></i> John Smith
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+                            <a class="dropdown-item small" href="#">List 1</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item small" href="#">List 2</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item small" href="#">List 3</a>
+                        </div>
+                    </li>
+
+                </ul>*@
+        </div>
+    </nav>
+    <!-- Content -->
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div>
+                <img height="20" class="mb-2" src="~/Content/Sakon-template/images/sakon-logo-horizontal.png">
+                <small class="align-middle ml-3">Copyright © <a href="http://www.sakon.com/">Sakon</a></small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Content/Sakon-template/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/Sakon-template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Content/Sakon-template/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="~/Content/Sakon-template/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Content/Sakon-template/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/Sakon-template/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/Content/Sakon-template/js/sk-admin.js"></script>
+    <!-- Custom scripts for this page-->
+    @*<script src="~/Content/Sakon-template/js/sb-admin-datatables.min.js"></script>
+    <script src="~/Content/Sakon-template/js/sb-admin-charts.min.js"></script>*@
+    </div>
+</body>
+</html>

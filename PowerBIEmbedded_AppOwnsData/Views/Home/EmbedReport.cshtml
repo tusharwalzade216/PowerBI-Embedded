@@ -1,0 +1,151 @@
+﻿@model PowerBIEmbedded_AppOwnsData.Models.EmbedConfig
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://npmcdn.com/es6-promise@3.2.1"></script>
+<script src="~/scripts/powerbi.js"></script>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div id="errorWrapper">
+        <h2>
+            Error
+        </h2>
+        <pre>
+            @Model.ErrorMessage
+        </pre>
+    </div>
+
+    return;
+}
+
+<h2 class="float-left">Embedded Report</h2>
+<div class="float-right">
+    <label><input type="checkbox" id="editReport" /> Edit Report &emsp;</label>
+    <button type="button" id="createReport" class="btn btn-sm btn-info">New Report</button>
+</div>
+<div id="reportContainer" class="embed-responsive embed-responsive-21by9"></div>
+
+@*@Html.Partial("LiveDemoLink")*@
+
+<script>
+    var isEdit = false;
+    // Get a reference to the embedded report HTML element
+    var reportContainer = $('#reportContainer')[0];
+    $('#editReport').on('click', function () {
+        if (checkReportIsEdit()) {
+            isEdit = true;
+            prepareReport();
+        } else {
+            isEdit = false;
+            prepareReport();
+        }
+    });
+
+    $('#createReport').on('click', function () {
+        createReport();
+    })
+
+    var checkReportIsEdit = function () {
+        if ($('#editReport').is(":checked"))
+            return true;
+        return false;
+    }
+
+    var prepareReport = function () {
+        // Read embed application token from Model
+        var accessToken = "@Model.EmbedToken.Token";
+
+        // Read embed URL from Model
+        var embedUrl = "@Html.Raw(Model.EmbedUrl)";
+
+        // Read report Id from Model
+        var embedReportId = "@Model.Id";
+
+        // Get models. models contains enums that can be used.
+        var models = window['powerbi-client'].models;
+        var embedMode = isEdit ? models.ViewMode.Edit : models.ViewMode.View;
+        // Embed configuration used to describe the what and how to embed.
+        // This object is used when calling powerbi.embed.
+        // This also includes settings and options such as filters.
+        // You can find more information at https://github.com/Microsoft/PowerBI-JavaScript/wiki/Embed-Configuration-Details.
+        var config = {
+            type: 'report',
+            tokenType: models.TokenType.Embed,
+            accessToken: accessToken,
+            embedUrl: embedUrl,
+            id: embedReportId,
+            permissions: models.Permissions.All,
+            viewMode: embedMode,
+            settings: {
+                filterPaneEnabled: true,
+                navContentPaneEnabled: true
+            }
+        };
+
+        // Embed the report and display it within the div container.
+        var report = powerbi.embed(reportContainer, config);
+
+        var saveAsParameters = {
+            name: "newReport"
+        };
+        report.on("saved", function (event) {
+            report.saveAs(saveAsParameters);
+        });
+    }
+
+    var createReport = function () {
+        // Read embed application token from textbox
+        var txtAccessToken = "@Model.EmbedToken.Token";
+
+        // Read embed URL from textbox
+        var txtEmbedUrl = "@Html.Raw(Model.EmbedUrl)";
+
+        // Read dataset Id from textbox
+        var txtEmbedDatasetId = "5f42e883-7055-4f7a-a82b-7d978f37713b";
+
+        // Get models. models contains enums that can be used.
+        var models = window['powerbi-client'].models;
+
+        // Embed create configuration used to describe the what and how to create report.
+        // This object is used when calling powerbi.createReport.
+        var embedCreateConfiguration = {
+            tokenType: models.TokenType.Embed,
+            accessToken: txtAccessToken,
+            embedUrl: txtEmbedUrl,
+            datasetId: txtEmbedDatasetId,
+        };
+
+        // Create report
+        var report = powerbi.createReport(reportContainer, embedCreateConfiguration);
+
+        report = powerbi.get(reportContainer);
+        var saveAsParameters = {
+            name: "newReport"
+        };
+        report.saveAs(saveAsParameters);
+        report.on("saved", function (event) {
+
+            // get new Token
+            var newReportId = event.detail.reportObjectId;
+
+            // create new Token. This is a function that the application should provide
+            var newToken = createAccessToken(newReportId, scopes /*provide the wanted scopes*/);
+
+
+            var embedConfiguration = {
+                accessToken: newToken,
+                embedUrl: 'https://embedded.powerbi.com/appTokenReportEmbed',
+                reportId: newReportId,
+            };
+
+            // Embed report
+            var report = powerbi.embed(reportContainer, embedConfiguration);
+
+            // report.off removes a given event handler if it exists.
+            report.off("saved");
+        });
+    }
+
+    prepareReport();
+</script>
