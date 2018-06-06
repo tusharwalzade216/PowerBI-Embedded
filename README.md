@@ -1,5 +1,7 @@
 # PowerBI-Embedded
-A working 'App Owns Data' project. You'll need to create a NATIVE app on your Azure Active Directory as shown in the second link below.
+- A working 'App Owns Data' project. 
+- You'll need to create a NATIVE app on your Azure Active Directory as shown in the second link below.
+- Modify Web.config with your credentials/IDs & you are ready to go!
 
 Bibliography -
 1) https://github.com/Microsoft/PowerBI-JavaScript/wiki
